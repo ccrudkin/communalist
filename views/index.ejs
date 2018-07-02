@@ -1,11 +1,37 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<% include header %>
+
+        <div class="page">
+            <div class="masthead">
+                <span id='mastheadText'>Communalist</span>
+            </div>
+            <div class="main">
+                <div class="infoPanel">
+                    <div class="infoForm">
+                        <form id="infoForm">
+                            <label for='listCode'>Join list:</label>
+                            <br>
+                            <input type="text" id="listCode" placeholder="Enter list code" maxlength="5">
+                            &nbsp
+                            <span id='statusGood'></span>
+                            <span id='statusBad'></span>
+                        </form>
+                    </div>
+                    <div class="infoForm">
+                        <span>Create list:</span>
+                        <button type='button' class="buttons">New list</button>
+                    </div>
+                </div>
+                <div class="list">
+                    <div id="listTitle"></div>
+                    <div>
+                        <ul id="listContents"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="foot">
+
+            </div>
+        </div>
+        <script src='/javascripts/getList.js'></script>
+
+<% include footer %>

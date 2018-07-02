@@ -1,8 +1,91 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+    box-sizing: border-box;
 }
 
-a {
-  color: #00B7FF;
+body {
+    font-family: 'Montserrat', sans-serif;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.masthead {
+    text-align: center;
+    background-color: #666;
+    width: 100%;
+}
+
+#mastheadText {
+    font-family: 'Amatic SC', cursive;
+    font-size: 6em;
+    color: #ddd;
+}
+
+.main {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.infoPanel {
+    width: 20%;
+    min-width: 125px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    color: #bbb;
+    padding: 1em;
+}
+
+.list {
+    width: 80%;
+    background-color: #bbb;
+    min-height: 300px;
+    font-size: 1.25em;
+    padding: 1em;
+}
+
+.infoPanel input {
+    width: 90%;
+    font-size: 1.25em;
+    padding: .25em;
+    border: 1px solid #666;
+    border-radius: .5em;
+    margin: .25em 0em;
+}
+
+#statusGood {
+    font-weight: 700;
+    color: #a9dfbf;
+}
+
+#statusBad {
+    font-weight: 700;
+    color: #e6b0aa;
+}
+
+.infoForm {
+    margin: 1em 0em;
+}
+
+.buttons {
+    color: #bbb;
+    background-color: #333;
+    width: 90%;
+    font-size: 1.25em;
+    padding: .25em;
+    border: 2px solid #bbb;
+    border-radius: .5em;
+    margin: .25em 0em;
+}
+
+.buttons:hover {
+    color: #333;
+    background-color: #bbb;
+    cursor: pointer;
 }
