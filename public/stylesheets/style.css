@@ -34,7 +34,7 @@ body {
 
 .infoPanel {
     width: 20%;
-    min-width: 125px;
+    min-width: 185px;
     background-color: #333;
     display: flex;
     flex-direction: column;
@@ -42,31 +42,22 @@ body {
     padding: 1em;
 }
 
-.list {
-    width: 80%;
-    background-color: #bbb;
-    min-height: 300px;
-    font-size: 1.25em;
-    padding: 1em;
-}
-
 .infoPanel input {
-    width: 90%;
+    width: 75%;
     font-size: 1.25em;
     padding: .25em;
     border: 1px solid #666;
     border-radius: .5em;
     margin: .25em 0em;
+    text-transform:uppercase;
 }
 
-#statusGood {
-    font-weight: 700;
-    color: #a9dfbf;
-}
-
-#statusBad {
-    font-weight: 700;
-    color: #e6b0aa;
+#status img {
+    position: relative;
+    top: .25em;
+    width: 1.5em;
+    height: auto;
+    margin-left: .25em;
 }
 
 .infoForm {
@@ -88,4 +79,81 @@ body {
     color: #333;
     background-color: #bbb;
     cursor: pointer;
+}
+
+.buttonInverse {
+    color: #333;
+    background-color: #bbb;
+    font-size: 1em;
+    padding: .25em 1em;
+    border: 2px solid #333;
+    border-radius: .5em;
+    margin: .25em .25em;
+}
+
+.buttonInverse:hover {
+    color: #bbb;
+    background-color: #333;
+    cursor: pointer;
+}
+
+.list {
+    width: 80%;
+    background-color: #bbb;
+    min-height: 300px;
+    font-size: 1.25em;
+    padding: 0em 1em 1em 1em;
+}
+
+#listTitle {
+    font-size: 2em;
+    color: #333;
+    padding: .25em;
+    border-bottom: 1px dashed #333;
+    margin-bottom: .5em;
+}
+
+.listContents {
+    display: flex;
+    flex-direction: column;
+}
+
+.listRow {
+    color: #333;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #ccc;
+    margin: .25em;
+    padding: .25em;
+}
+
+.listRow textarea {
+    margin: 0em .25em;
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    resize: none;
+    width: 100%;
+}
+
+.listHeading {
+    font-weight: 700;
+}
+
+#itemID {
+    display: none;
+}
+
+#item {
+    width: 27%;
+}
+
+#details {
+    width: 50%;
+}
+
+#claimed {
+    width: 20%;
 }

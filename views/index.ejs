@@ -8,24 +8,21 @@
                 <div class="infoPanel">
                     <div class="infoForm">
                         <form id="infoForm">
-                            <label for='listCode'>Join list:</label>
+                            <label for='listCode'>View list:</label>
                             <br>
-                            <input type="text" id="listCode" placeholder="Enter list code" maxlength="5">
-                            &nbsp
-                            <span id='statusGood'></span>
-                            <span id='statusBad'></span>
+                            <input type="text" id="listCode" placeholder="List code" size='16' maxlength="5">
+                            <span id='status'></span>
                         </form>
                     </div>
                     <div class="infoForm">
-                        <span>Create list:</span>
+                        <div>Create list:</div>
                         <button type='button' class="buttons">New list</button>
                     </div>
                 </div>
                 <div class="list">
                     <div id="listTitle"></div>
-                    <div>
-                        <ul id="listContents"></ul>
-                    </div>
+                    <div id="listContents"></div>
+                    <div id="listFoot"></div>
                 </div>
             </div>
             <div class="foot">
