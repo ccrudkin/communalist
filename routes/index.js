@@ -35,9 +35,34 @@ router.get('/list/:listCode', function(req, res) {
 });
 
 router.post('/update', function(req, res) {
-    // working properly, just displaying strangely
     console.log(req.body);
-    // next step: save into DB
+    let data = JSON.parse(req.body.data);
+    console.log(data.code);
+    console.log(data.items);
+
+    // /*
+    MongoClient.connect(murl, { useNewUrlParser: true }, function (err, client) {
+        if (err) {
+            console.log(err);
+            client.close();
+            res.send({ 'list': '', 'errors': 'Database error.' });
+        }
+
+        const db = client.db('communalist');
+
+        db.collection('userlists').updateOne( { 'code': data.code }, 
+                                            { $set: { 'items': data.items } },
+                                            (err, result) => {
+                                                if (err) {
+                                                    console.log(err);
+                                                } else {
+                                                    client.close();
+                                                    console.log(`Upadate result: ${result}`);
+                                                    res.send('List saved.');
+                                                }
+                                            });
+    });
+    // */
 });
 
 module.exports = router;

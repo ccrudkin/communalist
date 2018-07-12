@@ -20,6 +20,7 @@ function getList() {
                 console.log(data);
                 if (data.list != null) {
                     document.getElementById('listTitle').innerHTML = data.list.name;
+                    document.getElementById('listDisplayCode').innerHTML = `${data.list.code}`
                     document.getElementById('status').innerHTML = statusGood;
                     document.getElementById('listContents').innerHTML = listFormat(data);
                     document.getElementById('saveListButton').addEventListener("click", updateList);
@@ -52,7 +53,7 @@ function listFormat(data) {
                 `<span id='itemID'>${item}</span>` + 
                 `<textarea id='item' rows='1'>${list.items[item].name}</textarea>` +
                 `<textarea id='details' rows='1'>${list.items[item].details}</textarea>` + 
-                `<span id='claimed'>${list.items[item].claimed}</span>` +
+                `<textarea id='claimed' rows='1'>${list.items[item].claimed}</textarea>` +
             "</div>";
     }
 
@@ -62,27 +63,29 @@ function listFormat(data) {
 
 function updateList() {
     let children = $('#listContents').children();
-    console.log(children);
-    let updateObj = new Object();    
+    let updateObj = new Object();
+    updateObj['code'] = document.getElementById('listDisplayCode').innerHTML;
+    updateObj['items'] = {};
     for (let i = 1; i < children.length - 1; i++) {
-        console.log(children[i].children[0].innerHTML);
-        updateObj[`${children[i].children[0].innerHTML}`] = {
-            'name': children[i].children[1].innerHTML,
-            'details': children[i].children[2].innerHTML,
-            'claimed': children[i].children[3].innerHTML
+        // can't get the HTML -- that's not dynamic. Need to use a form-like submission.
+        updateObj.items[`${children[i].children[0].innerHTML}`] = {
+            name: children[i].children[1].innerHTML,
+            details: children[i].children[2].innerHTML,
+            claimed: children[i].children[3].innerHTML,
         };
     }
 
     $.ajax({
         url: '/update',
         type: 'POST',
-        data: updateObj,
+        data: { 'data': JSON.stringify(updateObj) },
         error(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
             return;
         },
         success(data, textStatus, jqXHR) {
             console.log('Request success.');
+            console.log(`Response data: ${data}`);
             return;
         }
     });
