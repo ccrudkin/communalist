@@ -87,12 +87,11 @@ router.get('/list/:listCode', function(req, res) {
 });
 
 router.post('/update', function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     let data = JSON.parse(req.body.data);
-    console.log(data.code);
-    console.log(data.items);
-
-    // /*
+    // console.log(data.code);
+    // console.log(data.items);
+    
     MongoClient.connect(murl, { useNewUrlParser: true }, function (err, client) {
         if (err) {
             console.log(err);
