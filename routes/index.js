@@ -54,15 +54,16 @@ router.post('/update', function(req, res) {
                                             { $set: { 'items': data.items } },
                                             (err, result) => {
                                                 if (err) {
+                                                    client.close();
                                                     console.log(err);
+                                                    res.send(['0', 'Save error.']);
                                                 } else {
                                                     client.close();
                                                     console.log(`Upadate result: ${result}`);
-                                                    res.send('List saved.');
+                                                    res.send([ '1', 'List saved.' ]);
                                                 }
                                             });
     });
-    // */
 });
 
 module.exports = router;

@@ -4,8 +4,8 @@ function getList() {
     // console.log(`List code: ${listCode}\nList code length: ${listCode.length}`);
 
     // AJAX duplicates when using 'shift' key (non-character, still counts as key-up)
-    let statusGood = "<img src='/images/check.png' >";
-    let statusBad = "<img src='/images/x.png' >";
+    let statusGood = "<img src='/images/check.png' alt='Green check; status good.' >";
+    let statusBad = "<img src='/images/x.png' alt='Red check; status bad.' >";
 
     if (listCode.length === 5) {
         $.ajax({
@@ -17,17 +17,20 @@ function getList() {
                 return;
             },
             success(data, textStatus, jqXHR) {
-                console.log(data);
+                // console.log(data);
                 if (data.list != null) {
                     document.getElementById('listTitle').innerHTML = data.list.name;
-                    document.getElementById('listDisplayCode').innerHTML = `${data.list.code}`
+                    document.getElementById('listDisplayCode').innerHTML = `List code: <span id='innerListCode'>${data.list.code}</span>`;
                     document.getElementById('status').innerHTML = statusGood;
-                    document.getElementById('listContents').innerHTML = listFormat(data);
+                    document.getElementById('listContents').innerHTML = data.list.items;
+                    document.getElementById('listFoot').innerHTML = "<button type='button' class='buttonInverse' id='saveListButton'>Save</button>";
                     document.getElementById('saveListButton').addEventListener("click", updateList);
                     return;
                 } else {
                     document.getElementById('listTitle').innerHTML = '';
                     document.getElementById('listContents').innerHTML = '';
+                    document.getElementById('listFoot').innerHTML = '';
+                    document.getElementById('listDisplayCode').innerHTML = '';
                     document.getElementById('status').innerHTML = statusBad;
                     return;
                 }
@@ -40,40 +43,10 @@ function getList() {
     }
 }
 
-function listFormat(data) {
-    let list = data.list;
-    let listHTML = "<div class='listRow listHeading'>" +
-            "<span id='item'>Item</span>" +
-            '<span id="details">Details</span>' +
-            '<span id="claimed">Claimed</span>' +
-        '</div>';
-    for (item in list.items) {
-        listHTML = listHTML +
-            "<div class='listRow'>" +
-                `<span id='itemID'>${item}</span>` + 
-                `<textarea id='item' rows='1'>${list.items[item].name}</textarea>` +
-                `<textarea id='details' rows='1'>${list.items[item].details}</textarea>` + 
-                `<textarea id='claimed' rows='1'>${list.items[item].claimed}</textarea>` +
-            "</div>";
-    }
-
-    listHTML = listHTML + "<button type='button' class='buttonInverse' id='saveListButton'>Save</button>"
-    return listHTML;
-}
-
 function updateList() {
-    let children = $('#listContents').children();
     let updateObj = new Object();
-    updateObj['code'] = document.getElementById('listDisplayCode').innerHTML;
-    updateObj['items'] = {};
-    for (let i = 1; i < children.length - 1; i++) {
-        // can't get the HTML -- that's not dynamic. Need to use a form-like submission.
-        updateObj.items[`${children[i].children[0].innerHTML}`] = {
-            name: children[i].children[1].innerHTML,
-            details: children[i].children[2].innerHTML,
-            claimed: children[i].children[3].innerHTML,
-        };
-    }
+    updateObj['code'] = document.getElementById('innerListCode').innerHTML;
+    updateObj['items'] = document.getElementById('listContents').value;
 
     $.ajax({
         url: '/update',
@@ -84,10 +57,25 @@ function updateList() {
             return;
         },
         success(data, textStatus, jqXHR) {
-            console.log('Request success.');
-            console.log(`Response data: ${data}`);
+            // console.log('Request success.');
+            // console.log(`Response data: ${data[1]}`);
+            if (data[0] === '1') {
+                $('#listFoot').append("<img class='saveStatus' src='/images/check.png' alt='Green check; status good.' >");
+                $('.saveStatus').show();
+                setTimeout(saveStatus, 2000);
+            } else {
+                $('#listFoot').append("<img class='saveStatus' src='/images/x.png' alt='Red check; status bad.' >");
+                $('.saveStatus').show();
+                setTimeout(saveStatus, 2000);
+            }
             return;
         }
+    });
+}
+
+function saveStatus() {
+    $('.saveStatus').fadeOut(300, 'swing', () => {
+        $('.saveStatus').remove();
     });
 }
 
