@@ -8,6 +8,58 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Communalist - Share your lists' });
 });
 
+router.get('/new', function(req, res) {
+    const bts = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    function randomNum() {
+        let code = '';
+        for (let i = 0; i < 5; i++) {
+            code += bts[Math.round(Math.random() * 36)];
+        }
+        return code.toUpperCase();
+    }
+    let newCode = randomNum();
+
+    MongoClient.connect(murl, { useNewUrlParser: true }, function (err, client) {
+        if (err) {
+            console.log(err);
+            client.close();
+            res.send( ['0', 'New list error.' ] );
+        }
+
+        const db = client.db('communalist');
+
+        db.collection('userlists').find({ 'code': `${newCode}` }).toArray((err, docs) => {
+            if (err) {
+                console.log(err);
+                client.close();
+                res.send(err);
+            } else {
+                if (docs.length === 0) {
+                    console.log(`Creating new document. Search documents returned:\n${docs}`);
+                    db.collection('userlists').insertOne({
+                        'code': newCode,
+                        'name': 'New list name',
+                        'items': 'Type your list here',
+                        'dateCreated': new Date().toISOString()
+                    }, (err, results) => {
+                        if (err) {
+                            console.log(err);
+                            client.close();
+                        } else {
+                            client.close();
+                            res.send(['1', newCode]);
+                        }
+                    });
+                } else {
+                    client.close();
+                    console.log(`Documents returned:\n${docs}`);
+                    res.send(['0', 'Code already in use.']);
+                }
+            }
+        });
+    });
+});
+
 router.get('/list/:listCode', function(req, res) {
     let listCode = req.params.listCode;
 
@@ -51,7 +103,7 @@ router.post('/update', function(req, res) {
         const db = client.db('communalist');
 
         db.collection('userlists').updateOne( { 'code': data.code }, 
-                                            { $set: { 'items': data.items } },
+                                            { $set: { 'items': data.items, 'name': data.name } },
                                             (err, result) => {
                                                 if (err) {
                                                     client.close();

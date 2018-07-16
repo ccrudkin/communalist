@@ -19,16 +19,16 @@ function getList() {
             success(data, textStatus, jqXHR) {
                 // console.log(data);
                 if (data.list != null) {
-                    document.getElementById('listTitle').innerHTML = data.list.name;
+                    document.getElementById('listTitle').value = data.list.name;
                     document.getElementById('listDisplayCode').innerHTML = `List code: <span id='innerListCode'>${data.list.code}</span>`;
                     document.getElementById('status').innerHTML = statusGood;
-                    document.getElementById('listContents').innerHTML = data.list.items;
+                    document.getElementById('listContents').value = data.list.items;
                     document.getElementById('listFoot').innerHTML = "<button type='button' class='buttonInverse' id='saveListButton'>Save</button>";
                     document.getElementById('saveListButton').addEventListener("click", updateList);
                     return;
                 } else {
-                    document.getElementById('listTitle').innerHTML = '';
-                    document.getElementById('listContents').innerHTML = '';
+                    document.getElementById('listTitle').value = '';
+                    document.getElementById('listContents').value = '';
                     document.getElementById('listFoot').innerHTML = '';
                     document.getElementById('listDisplayCode').innerHTML = '';
                     document.getElementById('status').innerHTML = statusBad;
@@ -47,6 +47,7 @@ function updateList() {
     let updateObj = new Object();
     updateObj['code'] = document.getElementById('innerListCode').innerHTML;
     updateObj['items'] = document.getElementById('listContents').value;
+    updateObj['name'] = document.getElementById('listTitle').value;
 
     $.ajax({
         url: '/update',
@@ -83,4 +84,11 @@ document.getElementById('listCode').addEventListener('keyup', (event) => {
     if (event.keyCode != '16') {
         getList();
     }
+});
+
+document.getElementById('listTitle').addEventListener('click', () => {
+    document.getElementById('listTitle').select();
+});
+document.getElementById('listCode').addEventListener('click', () => {
+    document.getElementById('listCode').select();
 });

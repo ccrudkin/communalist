@@ -120,7 +120,12 @@ body {
 
 #listTitle {
     font-size: 2em;
-    margin: 0em .5em;
+    margin: 0em .25em;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #bbb;
+    resize: none;
+    border: none;
+    height: 1.5em;
 }
 
 #listDisplayCode {

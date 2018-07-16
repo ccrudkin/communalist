@@ -1,17 +1,19 @@
-function creatNewList() {
+function createNewList() {
     $.ajax({
-        url: 'newList',
+        url: 'new',
         type: 'GET',
         error(jqXHR, status, errorThrown) {
             console.log(errorThrown);
             return;
         },
         success(data, status, jqXHR) {
-            console.log(data);
-            // alert and information here
+            console.log(`New list data:\n${data}`);
+            document.getElementById('listCode').value = data[1];
+            getList();
             return;
         }
     });
+    return;
 }
 
 document.getElementById('newListButton').addEventListener('click', createNewList);
