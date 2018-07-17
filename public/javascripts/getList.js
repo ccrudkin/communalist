@@ -86,9 +86,13 @@ document.getElementById('listCode').addEventListener('keyup', (event) => {
     }
 });
 
+/*
 document.getElementById('listTitle').addEventListener('click', () => {
     document.getElementById('listTitle').select();
 });
+
 document.getElementById('listCode').addEventListener('click', () => {
     document.getElementById('listCode').select();
 });
+
+*/

@@ -12,7 +12,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 95vh;
+    height: 105vh;
+    min-width: 320px;
 }
 
 .masthead {
@@ -36,7 +37,7 @@ body {
 
 .infoPanel {
     width: 20%;
-    min-width: 185px;
+    min-width: 200px;
     background-color: #333;
     display: flex;
     flex-direction: column;
@@ -45,7 +46,7 @@ body {
 }
 
 .infoPanel input {
-    width: 75%;
+    width: 80%;
     font-size: 1.25em;
     padding: .25em;
     border: 1px solid #666;
@@ -64,12 +65,13 @@ body {
 
 .infoForm {
     margin: 1em 0em;
+    min-width: 11em;
 }
 
 .buttons {
     color: #bbb;
     background-color: #333;
-    width: 90%;
+    width: 80%;
     font-size: 1.25em;
     padding: .25em;
     border: 2px solid #bbb;
@@ -102,8 +104,6 @@ body {
 .list {
     width: 80%;
     background-color: #bbb;
-    min-height: 300px;
-    height: 100%;
     font-size: 1.25em;
     padding: 0em 1em 1em 1em;
 }
@@ -162,4 +162,55 @@ body {
     width: 1.5em;
     height: auto;
     margin-left: .25em;
+}
+
+@media only screen and (max-width: 1000px) {
+    .listHead {
+        font-size: .8em;
+    }
+}
+
+@media only screen and (max-width: 840px) {
+    html {
+        font-size: .8em;
+    }
+    .listHead {
+        font-size: .6em;
+    }
+    .infoForm {
+        font-size: 1.2em;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    html {
+        font-size: 1em;
+    }
+    .main {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    #mastheadText {
+        font-size: 4.5em;
+    }
+    .infoPanel {
+        width: 100%;
+        padding: 1em;
+        align-items: center;
+        min-height: 200px;
+    }
+    .infoForm {
+        width: 50%;
+        text-align: left;
+        margin: .25em;
+    }
+    .list {
+        width: 100%;
+        flex: 1;
+        padding: 1em 1em 3em 1em;
+    }
+    .listHead {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
