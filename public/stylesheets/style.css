@@ -207,7 +207,7 @@ body {
     .list {
         width: 100%;
         flex: 1;
-        padding: 1em 1em 3em 1em;
+        padding: 1em 1em 4em 1em;
     }
     .listHead {
         flex-direction: column;
